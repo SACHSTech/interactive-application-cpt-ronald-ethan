@@ -12,6 +12,7 @@ public class Sketch extends PApplet {
     @Override
     public void settings() {
         size(600, 400); 
+        
     }
 
     @Override
@@ -21,6 +22,15 @@ public class Sketch extends PApplet {
 
     @Override
     public void draw() {
+        drawNotebook();
+    }
+
+    private void drawNotebook() {
+        fill(150, 75, 0); // Brown notebook cover
+        rect(60, 40, 450, 320);
+        fill(255); // White paper 
+        rect(82, 50, 200, 300);
+        rect(288, 50, 200, 300);
 
     }
 
