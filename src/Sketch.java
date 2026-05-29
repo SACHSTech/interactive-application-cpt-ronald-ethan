@@ -37,8 +37,14 @@ public class Sketch extends PApplet {
     }
 
     private void drawPen() {
-        strokeWeight(10);
+        strokeWeight(8);
+        stroke(156, 153, 152);
         line(mouseX, mouseY, mouseX + 80, mouseY - 120);
+        strokeWeight(15);
+        stroke(0);
+        line(mouseX + 7, mouseY - 10, mouseX + 80, mouseY - 120);
+        stroke(3);
+        line(mouseX + 54, mouseY - 90, mouseX + 70, mouseY - 120);
         strokeWeight(0);
     }
 
