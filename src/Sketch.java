@@ -11,7 +11,7 @@ public class Sketch extends PApplet {
 
     @Override
     public void settings() {
-        size(600, 400); 
+        size(800, 600); 
         
     }
 
@@ -23,31 +23,61 @@ public class Sketch extends PApplet {
     @Override
     public void draw() {
         background(255);
-        drawNotebook();
+        drawNotebook(175, 75, 450, 320);
         drawPen();
     }
 
-    private void drawNotebook() {
-        fill(150, 75, 0); // Brown notebook cover
-        rect(60, 40, 450, 320);
-        fill(255); // White paper 
-        rect(82, 50, 200, 300);
-        rect(288, 50, 200, 300);
+    private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight) {
+        // Brown notebook cover
+        fill(150, 75, 0);
+        noStroke();
+        // The roundness of the notebook is 10
+        rect(170, 70, 460, 330, 10);
+
+        // Notebook paper
+        fill(255);
+        rect(paperX, paperY, paperWidth, paperHeight);
+
+        // Blue Lines on the notebook paper
+        stroke(200, 220, 255); 
+        strokeWeight(1);
+        // A loop to change the y value of the lines until the end of the paper with increment of 25
+        for (int i = 95; i < 75 + paperHeight; i += 25) {
+            line(175, i, 175 + paperWidth, i);
+        }
+
+        // Red Line on the notebook paper
+        stroke(255, 180, 180);
+        line(210, 75, 210, 75 + paperHeight);
+
+        // Notebook spine
+        stroke(100, 50, 0);
+        strokeWeight(3);
+        line(paperX + (paperWidth / 2), paperY, paperX + (paperWidth / 2), paperY + paperHeight);
+
+        // Reset the stroke weight 
+        strokeWeight(0);
 
     }
 
     private void drawPen() {
+        // pen tip
         strokeWeight(8);
         stroke(156, 153, 152);
         line(mouseX, mouseY, mouseX + 80, mouseY - 120);
+        // pen body
         strokeWeight(15);
         stroke(0);
         line(mouseX + 7, mouseY - 10, mouseX + 80, mouseY - 120);
+        // pen clip
         stroke(3);
         line(mouseX + 54, mouseY - 90, mouseX + 70, mouseY - 120);
         strokeWeight(0);
     }
 
+   
+
     /** Additional helper methods below */
 
+    
 }
