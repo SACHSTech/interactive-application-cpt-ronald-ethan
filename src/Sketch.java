@@ -4,7 +4,22 @@ import processing.core.PApplet;
  * Template for programs with Processing graphics output.
  * @author Your Name
  */
+
 public class Sketch extends PApplet {
+    // Tells what shape is currently selected
+    String selectedShape = "none"; 
+    // Stores all the x and y values of the drawn shapes
+    int[] shapeX = new int[100];
+    int[] shapeY = new int[100];
+    // Stores the shape type being selected and drawn
+    String[] shapeType = new String[100];
+    // Counts the current number of shapes
+    int shapeCount = 0;
+    // UI Variables
+    int UIWidth = 80;
+    int distBTWBoxes = 45;
+    int UIdistance = UIWidth + distBTWBoxes;
+
     public static void main(String[] args) {
         PApplet.main("Sketch");
     }
@@ -80,9 +95,8 @@ public class Sketch extends PApplet {
 
         // Boxes
         strokeWeight(2);
-        int distance = 125;
         for (int i = 0; i < 4; i++) {
-            rect(170 + distance * i, 420, 80, 80, 10);
+            rect(170 + UIdistance * i, 420, UIWidth, UIWidth, 10);
         }
         stroke(0); 
         fill(128, 128, 128);
@@ -90,17 +104,16 @@ public class Sketch extends PApplet {
         rect(180, 440, 60, 40);
         
         // Square
-        square(185 + distance, 435, 50);
+        square(185 + UIdistance, 435, 50);
 
         // Circle
-        circle(210 + 2 * distance, 460, 55);
+        circle(210 + 2 * UIdistance, 460, 55);
 
         // Triangle
         triangle(585, 435, 620, 485, 550, 485);
     }
     
-   
-
+    
     /** Additional helper methods below */
 
     
