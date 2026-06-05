@@ -43,6 +43,39 @@ public class Sketch extends PApplet {
         drawPen();
     }
 
+    public void mousePressed() {
+    // Distance between X value of the 
+    int distance = UIWidth + distBTWBoxes;
+
+    // Checks which button is being clicked
+    if (mouseY >= 420 && mouseY <= 500) {
+        // Selection for rectangle
+        if (mouseX >= 170 && mouseX <= 250) {
+            selectedShape = "rectangle";
+        // Selection for square
+        } else if (mouseX >= 170 + distance && mouseX <= 250 + distance) {
+            selectedShape = "square";
+        // Selection for cirlce
+        } else if (mouseX >= 170 + distance * 2 && mouseX <= 250 + distance * 2) {
+            selectedShape = "circle";
+        // Selection for triangle
+        } else if (mouseX >= 170 + distance * 3 && mouseX <= 250 + distance * 3) {
+            selectedShape = "triangle";
+        }
+    }   
+    // Prints out the shape when mouse is pressed on the notebook area and if a shape has been selected
+    else if (mouseX >= 175 && mouseX <= 625 && mouseY >= 75 && mouseY <= 395) {
+        if (!selectedShape.equals("none") && shapeCount < 100) {
+            shapeX[shapeCount] = mouseX;
+            shapeY[shapeCount] = mouseY;
+            shapeType[shapeCount] = selectedShape;
+            // Adds to the number of shapes on the notebook for index value of array
+            shapeCount++;  
+            // Resets the shape chosen        
+            selectedShape = "none"; 
+        }
+    }
+}
     private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight) {
         // Brown notebook cover
         fill(150, 75, 0);
