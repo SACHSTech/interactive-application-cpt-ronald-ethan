@@ -41,13 +41,14 @@ public class Sketch extends PApplet {
         drawNotebook(175, 75, 450, 320);
         shapesUI();
         drawPen();
+        drawPlacedShapes(); 
     }
 
     public void mousePressed() {
     // Distance between X value of the 
     int distance = UIWidth + distBTWBoxes;
 
-    // Checks which button is being clicked
+    // Checks which shape is being selected
     if (mouseY >= 420 && mouseY <= 500) {
         // Selection for rectangle
         if (mouseX >= 170 && mouseX <= 250) {
@@ -76,6 +77,26 @@ public class Sketch extends PApplet {
         }
     }
 }
+
+    // Drawing the actual shapes
+    private void drawPlacedShapes() {
+        fill(128, 128, 128); 
+        stroke(0);
+        strokeWeight(1);
+        
+        for (int i = 0; i < shapeCount; i++) {
+            if (shapeType[i].equals("rectangle")) {
+                rect(shapeX[i] - 30, shapeY[i] - 20, 60, 40); 
+            } else if (shapeType[i].equals("square")) {
+                rect(shapeX[i] - 25, shapeY[i] - 25, 50, 50);
+            } else if (shapeType[i].equals("circle")) {
+                circle(shapeX[i], shapeY[i], 55);
+            } else if (shapeType[i].equals("triangle")) {
+                triangle(shapeX[i], shapeY[i] - 25, shapeX[i] + 25, shapeY[i] + 25, shapeX[i] - 25, shapeY[i] + 25);
+            }
+        }
+    }
+
     private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight) {
         // Brown notebook cover
         fill(150, 75, 0);
