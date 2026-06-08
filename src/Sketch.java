@@ -9,10 +9,10 @@ public class Sketch extends PApplet {
     // Tells what shape is currently selected
     String selectedShape = "none"; 
     // Stores all the x and y values of the drawn shapes
-    int[] shapeX = new int[100];
-    int[] shapeY = new int[100];
+    int[] shapeX = new int[0];
+    int[] shapeY = new int[0];
     // Stores the shape type being selected and drawn
-    String[] shapeType = new String[100];
+    String[] shapeType = new String[0];
     // Counts the current number of shapes
     int shapeCount = 0;
     // UI Variables
@@ -39,9 +39,9 @@ public class Sketch extends PApplet {
     public void draw() {
         background(255);
         drawNotebook(175, 75, 450, 320, 35);
+        drawPlacedShapes(); 
         shapesUI(170, 420);
         drawPen();
-        drawPlacedShapes(); 
     }
 
     public void mousePressed() {
@@ -66,7 +66,9 @@ public class Sketch extends PApplet {
         }   
         // Prints out the shape when mouse is pressed on the notebook area and if a shape has been selected
         else if (mouseX >= 175 && mouseX <= 625 && mouseY >= 75 && mouseY <= 395) {
-            if (!selectedShape.equals("none") && shapeCount < 100) {
+            if (!selectedShape.equals("none")) {
+                growArraySize();
+
                 shapeX[shapeCount] = mouseX;
                 shapeY[shapeCount] = mouseY;
                 shapeType[shapeCount] = selectedShape;
@@ -77,6 +79,24 @@ public class Sketch extends PApplet {
             }
         }
     }
+    // Increases the array size each time a shape is placed
+    private void growArraySize() {
+        int newArraySize = shapeX.length + 1;
+
+        int[] newShapeX = new int[newArraySize];
+        int[] newShapeY = new int[newArraySize];
+        String[] newShapeType = new String[newArraySize];
+
+        for (int i = 0; i < shapeCount; i++) {
+            newShapeX[i] = shapeX[i];
+            newShapeY[i] = shapeY[i];
+            newShapeType[i] = shapeType[i];
+        }
+
+        shapeX = newShapeX;
+        shapeY = newShapeY;
+        shapeType = newShapeType;
+    } 
 
     // Drawing the actual shapes
     private void drawPlacedShapes() {
@@ -146,7 +166,6 @@ public class Sketch extends PApplet {
     }
     
     private void shapesUI(int firstUI_X, int UI_Y) {
-
         // Boxes
         strokeWeight(2);
         for (int i = 0; i < 4; i++) {
@@ -165,6 +184,7 @@ public class Sketch extends PApplet {
 
         // Triangle
         triangle(585, 435, 620, 485, 550, 485);
+        noFill();
     }
     
     
