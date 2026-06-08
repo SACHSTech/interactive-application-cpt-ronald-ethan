@@ -38,45 +38,45 @@ public class Sketch extends PApplet {
     @Override
     public void draw() {
         background(255);
-        drawNotebook(175, 75, 450, 320);
-        shapesUI();
+        drawNotebook(175, 75, 450, 320, 35);
+        shapesUI(170, 420);
         drawPen();
         drawPlacedShapes(); 
     }
 
     public void mousePressed() {
     // Distance between X value of the 
-    int distance = UIWidth + distBTWBoxes;
-
-    // Checks which shape is being selected
-    if (mouseY >= 420 && mouseY <= 500) {
-        // Selection for rectangle
-        if (mouseX >= 170 && mouseX <= 250) {
-            selectedShape = "rectangle";
-        // Selection for square
-        } else if (mouseX >= 170 + distance && mouseX <= 250 + distance) {
-            selectedShape = "square";
-        // Selection for cirlce
-        } else if (mouseX >= 170 + distance * 2 && mouseX <= 250 + distance * 2) {
-            selectedShape = "circle";
-        // Selection for triangle
-        } else if (mouseX >= 170 + distance * 3 && mouseX <= 250 + distance * 3) {
-            selectedShape = "triangle";
-        }
-    }   
-    // Prints out the shape when mouse is pressed on the notebook area and if a shape has been selected
-    else if (mouseX >= 175 && mouseX <= 625 && mouseY >= 75 && mouseY <= 395) {
-        if (!selectedShape.equals("none") && shapeCount < 100) {
-            shapeX[shapeCount] = mouseX;
-            shapeY[shapeCount] = mouseY;
-            shapeType[shapeCount] = selectedShape;
-            // Adds to the number of shapes on the notebook for index value of array
-            shapeCount++;  
-            // Resets the shape chosen        
-            selectedShape = "none"; 
+        int distance = UIWidth + distBTWBoxes;
+        
+        // Checks which shape is being selected
+        if (mouseY >= 420 && mouseY <= 500) {
+            // Selection for rectangle
+            if (mouseX >= 170 && mouseX <= 250) {
+                selectedShape = "rectangle";
+            // Selection for square
+            } else if (mouseX >= 170 + distance && mouseX <= 250 + distance) {
+                selectedShape = "square";
+            // Selection for circle
+            } else if (mouseX >= 170 + distance * 2 && mouseX <= 250 + distance * 2) {
+                selectedShape = "circle";
+            // Selection for triangle
+            } else if (mouseX >= 170 + distance * 3 && mouseX <= 250 + distance * 3) {
+                selectedShape = "triangle";
+            }
+        }   
+        // Prints out the shape when mouse is pressed on the notebook area and if a shape has been selected
+        else if (mouseX >= 175 && mouseX <= 625 && mouseY >= 75 && mouseY <= 395) {
+            if (!selectedShape.equals("none") && shapeCount < 100) {
+                shapeX[shapeCount] = mouseX;
+                shapeY[shapeCount] = mouseY;
+                shapeType[shapeCount] = selectedShape;
+                // Adds to the number of shapes on the notebook for index value of array
+                shapeCount++;  
+                // Resets the shape chosen        
+                selectedShape = "none"; 
+            }
         }
     }
-}
 
     // Drawing the actual shapes
     private void drawPlacedShapes() {
@@ -97,7 +97,7 @@ public class Sketch extends PApplet {
         }
     }
 
-    private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight) {
+    private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight, int redLineIndent) {
         // Brown notebook cover
         fill(150, 75, 0);
         noStroke();
@@ -112,14 +112,14 @@ public class Sketch extends PApplet {
         stroke(200, 220, 255); 
         strokeWeight(1);
         // A loop to change the y value of the lines until the end of the paper with increment of 25
-        for (int i = 95; i < 75 + paperHeight; i += 25) {
-            line(175, i, 175 + paperWidth, i);
+        for (int i = 95; i < paperY + paperHeight; i += 25) {
+            line(paperX, i, paperX + paperWidth, i);
         }
 
         // Red Line on the notebook paper
         stroke(255, 180, 180);
-        line(210, 75, 210, 75 + paperHeight);
-        line(210 + paperWidth / 2, 75, 210 + paperWidth / 2, 75 + paperHeight);
+        line(paperX + redLineIndent, paperY, paperX + redLineIndent, paperY + paperHeight);
+        line(paperX + redLineIndent + paperWidth / 2, paperY, paperX + redLineIndent + paperWidth / 2, paperY + paperHeight);
         // Notebook spine
         stroke(100, 50, 0);
         strokeWeight(3);
@@ -145,12 +145,12 @@ public class Sketch extends PApplet {
         strokeWeight(0);
     }
     
-    private void shapesUI() {
+    private void shapesUI(int firstUI_X, int UI_Y) {
 
         // Boxes
         strokeWeight(2);
         for (int i = 0; i < 4; i++) {
-            rect(170 + UIdistance * i, 420, UIWidth, UIWidth, 10);
+            rect(firstUI_X + UIdistance * i, UI_Y, UIWidth, UIWidth, 10);
         }
         stroke(0); 
         fill(128, 128, 128);
