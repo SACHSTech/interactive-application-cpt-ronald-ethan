@@ -6,7 +6,7 @@ import processing.core.PApplet;
  */
 
 public class Sketch extends PApplet {
-    // Tells what shape is currently selected
+    // Tracks what shape is currently selected
     String selectedShape = "none"; 
     // Stores all the x and y values of the drawn shapes
     int[] shapeX = new int[0];
@@ -43,12 +43,14 @@ public class Sketch extends PApplet {
         shapesUI(170, 420);
         drawPen();
     }
-
+    /** 
+     * Checks what UI is being selected based on mouse coordinates
+     */
     public void mousePressed() {
     // Distance between X value of the 
         int distance = UIWidth + distBTWBoxes;
         
-        // Checks which shape is being selected
+        // Checks which shape is being selected in the UI section
         if (mouseY >= 420 && mouseY <= 500) {
             // Selection for rectangle
             if (mouseX >= 170 && mouseX <= 250) {
@@ -66,33 +68,35 @@ public class Sketch extends PApplet {
         }   
         // Prints out the shape when mouse is pressed on the notebook area and if a shape has been selected
         else if (mouseX >= 175 && mouseX <= 625 && mouseY >= 75 && mouseY <= 395) {
+            // If a shape is selected the shape array size will increase by 1
             if (!selectedShape.equals("none")) {
                 growArraySize();
-
+                // Store the mouse coordinates and shape type at the current shape count index 
                 shapeX[shapeCount] = mouseX;
                 shapeY[shapeCount] = mouseY;
                 shapeType[shapeCount] = selectedShape;
                 // Adds to the number of shapes on the notebook for index value of array
-                shapeCount++;  
-                // Resets the shape chosen        
-                selectedShape = "none"; 
+                shapeCount++;          
+                
             }
         }
     }
-    // Increases the array size each time a shape is placed
-    private void growArraySize() {
-        int newArraySize = shapeX.length + 1;
 
+
+    private void growArraySize() {
+        // Calculates the new array size by adding 1 to the old array size
+        int newArraySize = shapeX.length + 1;
+        // Creates a new array to store the new array values and size
         int[] newShapeX = new int[newArraySize];
         int[] newShapeY = new int[newArraySize];
         String[] newShapeType = new String[newArraySize];
-
+        // Inputs all the old values into the new array
         for (int i = 0; i < shapeCount; i++) {
             newShapeX[i] = shapeX[i];
             newShapeY[i] = shapeY[i];
             newShapeType[i] = shapeType[i];
         }
-
+        // Updates the old array with the new ones
         shapeX = newShapeX;
         shapeY = newShapeY;
         shapeType = newShapeType;
@@ -103,7 +107,7 @@ public class Sketch extends PApplet {
         fill(128, 128, 128); 
         stroke(0);
         strokeWeight(1);
-        
+        // Loops through all stored values to draw after background() erases all previous
         for (int i = 0; i < shapeCount; i++) {
             if (shapeType[i].equals("rectangle")) {
                 rect(shapeX[i] - 30, shapeY[i] - 20, 60, 40); 
