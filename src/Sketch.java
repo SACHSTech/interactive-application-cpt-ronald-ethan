@@ -1,8 +1,10 @@
 import processing.core.PApplet;
 
 /**
- * Template for programs with Processing graphics output.
- * @author Your Name
+ * A sketch that draws a digital notebook where users can
+ * select common shapes from the user interface to place on the blank paper. 
+ * It also includes a custom pen cursor that follows the mouse movement.
+ * * @author Ethan Gu & Ronald Fang
  */
 
 public class Sketch extends PApplet {
@@ -44,7 +46,8 @@ public class Sketch extends PApplet {
         drawPen();
     }
     /** 
-     * Checks what UI is being selected based on mouse coordinates
+     * Checks what UI is being selected based on mouse coordinates and puts it 
+     * into an array to be called upon later.
      */
     public void mousePressed() {
     // Distance between X value of the 
@@ -81,7 +84,7 @@ public class Sketch extends PApplet {
             }
         }
     }
-
+        // The array grows each time a new shape is put into it.
 
     private void growArraySize() {
         // Calculates the new array size by adding 1 to the old array size
@@ -102,7 +105,8 @@ public class Sketch extends PApplet {
         shapeType = newShapeType;
     } 
 
-    // Drawing the actual shapes
+    // Drawing the actual shapes by pulling them out of the array.
+
     private void drawPlacedShapes() {
         fill(128, 128, 128); 
         stroke(0);
@@ -121,6 +125,14 @@ public class Sketch extends PApplet {
         }
     }
 
+    /** Draws a textured notebook that consists of a brown base cover, 
+     white pages, horizontal and vertical lines, and a center spine.
+     * @param paperX         The X position of the inner white paper.
+     * @param paperY         The Y position of the inner white paper.
+     * @param paperWidth     The width of the white paper.
+     * @param paperHeight    The height of the white paper.
+     * @param redLineIndent  The horizontal offset distance for the red vertical margin line.
+     */
     private void drawNotebook(int paperX, int paperY, int paperWidth, int paperHeight, int redLineIndent) {
         // Brown notebook cover
         fill(150, 75, 0);
@@ -154,6 +166,8 @@ public class Sketch extends PApplet {
 
     }
 
+    // Draws a pen 
+
     private void drawPen() {
         // Pen tip
         strokeWeight(8);
@@ -169,6 +183,10 @@ public class Sketch extends PApplet {
         strokeWeight(0);
     }
     
+    /** Draws the user interface bar at the bottom. 
+     * @param firstUI_X The starting X position for the first menu box.
+     * @param UI_Y      The baseline Y position for the menu tray.
+     **/
     private void shapesUI(int firstUI_X, int UI_Y) {
         // Boxes
         strokeWeight(2);
@@ -190,9 +208,4 @@ public class Sketch extends PApplet {
         triangle(585, 435, 620, 485, 550, 485);
         noFill();
     }
-    
-    
-    /** Additional helper methods below */
-
-    
 }
